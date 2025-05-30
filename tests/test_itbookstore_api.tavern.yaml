@@ -1,0 +1,48 @@
+test_name: Search for a Book
+
+stages:
+  - name: Search for "python"
+    request:
+      url: https://api.itbook.store/1.0/search/python
+      method: GET
+    response:
+      status_code: 200
+      strict: false # <- allows extra keys like 'error', 'total', 'page'
+      json:
+        books:
+          - title: !anystr
+            subtitle: !anystr
+            isbn13: !anystr
+            price: !anystr
+            url: !anystr
+      save:
+        json:
+          isbn13: books[0].isbn13
+
+  - name: Retrieve Book Details
+    request:
+      url: https://api.itbook.store/1.0/books/{isbn13}
+      method: GET
+    response:
+      status_code: 200
+      strict: false
+      json:
+        title: !anystr
+        authors: !anystr
+        publisher: !anystr
+        language: !anystr
+        isbn10: !anystr
+        isbn13: !anystr
+        pages: !anystr
+        year: !anystr
+        rating: !anystr
+        desc: !anystr
+        price: !anystr
+        image: !anystr
+
+  - name: Invalid ISBN13
+    request:
+      url: https://api.itbook.store/1.0/books/00000000000
+      method: GET
+    response:
+      status_code: 404
