@@ -1,0 +1,29 @@
+test_name: "Get post and validate ID with saved userId"
+
+stages:
+  - name: "Get post 1"
+    request:
+      url: https://jsonplaceholder.typicode.com/posts/1
+      method: GET
+    response:
+      status_code: 200
+      json:
+        id: 1
+        userId: 1
+        title: !anystr
+        body: !anystr
+      save:
+        json:
+          user_id: userId
+
+  - name: "Get all posts by userId"
+    request:
+      url: https://jsonplaceholder.typicode.com/posts
+      method: GET
+      params:
+        userId: "{user_id}"
+    response:
+      status_code: 200
+      json:
+        - userId: 1 # Match as int to avoid string mismatch
+      strict: false

@@ -1,3 +1,17 @@
+# Python virtual environments
+venv/
+venv311/
+
+# Python cache
+__pycache__/
+tests/__pycache__/
+venv311/lib/python3.11/site-packages/__pycache__/
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
 # .gitignore
 venv/
 __pycache__/
