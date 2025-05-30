@@ -4,6 +4,7 @@ import re
 SEARCH_URL = "https://api.itbook.store/1.0/search/"
 BOOK_URL = "https://api.itbook.store/1.0/books/"
 
+''' This script searches for a book by title, retrieves its details, and validates the price format. '''
 def search_books(query):
     try:
         response = requests.get(f"{SEARCH_URL}{query}")
@@ -18,6 +19,7 @@ def search_books(query):
         print(f"❌ Error during book search: {e}")
         return None
 
+''' Fetches book details by ISBN13 from the API. '''
 def get_book_details(isbn13):
     try:
         response = requests.get(f"{BOOK_URL}{isbn13}")
@@ -26,10 +28,24 @@ def get_book_details(isbn13):
     except Exception as e:
         print(f"❌ Error fetching book details: {e}")
         return None
-
+'''
+Validates the price format to ensure it matches the pattern "$X.XX" where X is a digit. '''
 def validate_price_format(price):
+    """
+Regex Breakdown: ^\$\d+\.\d{2}$
+| Part     | Meaning
+|----------|-------------------------------------------------------------|
+| ^        | Start of the string                                         |
+| \$       | Matches a literal dollar sign "$"                           |
+| \d+      | One or more digits (matches whole dollar amount)            |
+| \.       | Matches the decimal point "."                               |
+| \d{2}    | Exactly two digits (matches the cents)                      |
+| $        | End of the string                                           |
+"""
     return bool(re.match(r"^\$\d+\.\d{2}$", price))
 
+'''
+Main function to execute the book search and details retrieval. '''
 def main():
     query = input("🔍 Enter a search term: ").strip()
     first_book = search_books(query)

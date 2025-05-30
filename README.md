@@ -36,6 +36,35 @@ To run a utility script (e.g., book details fetcher):
 python tests/book_details.py
 ```
 
+
+## Makefile Usage
+
+This repository includes a `Makefile` with helpful commands for common tasks:
+
+| Command         | Description                                      |
+|----------------|--------------------------------------------------|
+| `make test`    | Run all Tavern API tests                         |
+| `make python`  | Run all Python scripts in the `tests/` directory |
+| `make env-reset` | Rebuild the Python 3.11 virtual environment and install dependencies |
+| `make env-reenter` | Print a message and activate the virtualenv in the current shell |
+| `make env-shell` | Spawn a new shell with the virtualenv activated |
+
+**Examples:**
+
+```sh
+# Run all Tavern tests
+make test
+
+# Run all Python scripts in tests/
+make python
+
+# Rebuild the virtual environment and install requirements
+make env-reset
+
+# Enter a shell with the virtualenv activated
+make env-shell
+```
+
 ## Project Structure
 
 - `tests/` - Contains Tavern YAML test files and Python scripts
