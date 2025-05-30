@@ -1,0 +1,20 @@
+# Sample Tavern test for a public API
+
+---
+test_name: Get a post from JSONPlaceholder
+
+tags:
+  - jsonplaceholder
+
+stages:
+  - name: Get post 1
+    request:
+      url: https://jsonplaceholder.typicode.com/posts/1
+      method: GET
+    response:
+      status_code: 200
+      json:
+        userId: 1
+        id: 1
+        title: !!str
+        body: !!str
